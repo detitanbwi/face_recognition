@@ -15,7 +15,7 @@ def create_database():
     cursor = conn.cursor()
 
     # Membuat database
-    cursor.execute("CREATE DATABASE IF NOT EXISTS "+db_name)
+    cursor.execute("CREATE DATABASE IF NOT EXISTS " + db_name)
     cursor.close()
     conn.close()
 
@@ -34,8 +34,7 @@ def create_tables():
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
-            user_id INT NOT NULL,
-            UNIQUE (user_id)
+            user_id VARCHAR(100) NOT NULL UNIQUE
         )
     """)
 
@@ -44,9 +43,8 @@ def create_tables():
         CREATE TABLE IF NOT EXISTS faces (
             id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT NOT NULL,
-            face_data LONGBLOB NOT NULL,
-            face_shape VARCHAR(255) NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(user_id)
+            face_data VARCHAR(255) NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )
     """)
 
